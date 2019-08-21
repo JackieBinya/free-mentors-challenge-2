@@ -13,4 +13,15 @@ const verifyNewUser = (req, res, next) => {
   next();
 };
 
-export { verifyNewUser };
+const verifyExistingUser = async (req, res, next) => {
+  const user = await User.findByEmail(req.body.email.trim());
+  if (!user) {
+    return res.status(400).json({
+      status: 400,
+      error: 'Please sign up to continue, if already signed up email you provided is incorrect. Please try again.',
+    });
+  }
+  next();
+};
+
+export { verifyNewUser, verifyExistingUser };

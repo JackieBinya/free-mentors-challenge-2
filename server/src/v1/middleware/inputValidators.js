@@ -64,4 +64,23 @@ const signUpValidator = (req, res, next) => {
   next();
 };
 
-export { signUpValidator };
+const loginValidator = (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || email.trim() === '') {
+    return res.status(400).json({
+      status: 400,
+      error: 'Please enter your email, to continue.',
+    });
+  }
+
+  if (!password || password.trim() === '') {
+    return res.status(400).json({
+      status: 400,
+      error: 'Please enter your password, to continue.',
+    });
+  }
+  next();
+};
+
+export { signUpValidator, loginValidator };

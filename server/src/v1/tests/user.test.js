@@ -82,3 +82,64 @@ describe('POST /api/v1/auth/signup', () => {
     expect(res).to.have.status(400);
   });
 });
+
+describe('POST /api/v1/auth/signin', () => {
+  beforeEach(() => {
+    User.remove();
+  });
+
+  const user = {};
+
+  const exec = () => request(app)
+    .post('/api/v1/auth/signin')
+    .send(user);
+
+  it('should not sign in a user who provides an invalid email', async () => {
+    const { user00 } = data;
+    user.email = '#';
+    user.password = user00.password;
+
+    const res = await exec();
+    expect(res).to.have.status(400);
+  });
+
+  it('should not sign in a user who provides an invalid password', async () => {
+    const { user00 } = data;
+    user.email = user00.email;
+    user.password = 'x-men';
+
+    const res = await exec();
+    expect(res).to.have.status(400);
+  });
+
+  it('should sign in a user who provides all the required detail', async () => {
+    const { user00 } = data;
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(user00.password, salt);
+
+    User.create({
+      firstName: user00.firstName,
+      lastName: user00.lastName,
+      email: user00.email,
+      password: hash,
+      address: user00.address,
+      occupation: user00.occupation,
+      bio: user00.bio,
+      expertise: user00.expertise,
+    });
+
+    user.email = user00.email;
+    user.password = user00.password;
+
+    const res = await exec();
+    expect(res).to.have.status(200);
+  });
+
+  it('should not sign in a user who is not registered in the app', async () => {
+    user.email = 'foo@bar.com';
+    user.password = '123456b';
+
+    const res = await exec();
+    expect(res).to.have.status(400);
+  });
+});

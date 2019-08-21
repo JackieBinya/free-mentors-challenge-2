@@ -142,4 +142,27 @@ describe('POST /api/v1/auth/signin', () => {
     const res = await exec();
     expect(res).to.have.status(400);
   });
+
+  it('should not sign in a user whose passwords mismatch', async () => {
+    const { user00 } = data;
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(user00.password, salt);
+
+    User.create({
+      firstName: user00.firstName,
+      lastName: user00.lastName,
+      email: user00.email,
+      password: hash,
+      address: user00.address,
+      occupation: user00.occupation,
+      bio: user00.bio,
+      expertise: user00.expertise,
+    });
+
+    user.email = user00.email;
+    user.password = 'foo';
+
+    const res = await exec();
+    expect(res).to.have.status(400);
+  });
 });

@@ -14,6 +14,7 @@ const port = process.env.PORT || 8001;
 
 app.use('/api/v1', createAdmin);
 app.use('/api/v1/auth', routes.authRoutes);
+app.use('/api/v1/user', routes.userRoutes);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
 

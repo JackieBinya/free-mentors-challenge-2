@@ -19,7 +19,7 @@ class User {
       bio,
       expertise,
       imageUrl: '',
-      isAdmin: 'false',
+      isAdmin: false,
       role: 'user',
       id: uuid.v4(),
     };
@@ -41,7 +41,7 @@ class User {
       bio,
       expertise,
       imageUrl: '',
-      isAdmin: 'true',
+      isAdmin: true,
       role: '',
       id: uuid.v4(),
     };
@@ -56,6 +56,17 @@ class User {
 
   findAdmin() {
     return this.users.find(user => user.isAdmin === 'true');
+  }
+
+  findOne(id) {
+    return this.users.find(user => user.id === id)
+  }
+
+  changeRole(id) {
+    const user = this.findOne(id);
+    const index = this.users.indexOf(user);
+    this.users[index].role = 'mentor';
+    return this.users[index];
   }
 
   remove() {

@@ -5,6 +5,8 @@ import bcrypt from 'bcryptjs';
 import app from '../app';
 import User from '../models/User';
 import data from './MockData/user';
+import '../../../../env';
+import generateToken from '../utils/authService';
 
 chai.use(chaiHttp);
 const { expect, request } = chai;
@@ -164,5 +166,62 @@ describe('POST /api/v1/auth/signin', () => {
 
     const res = await exec();
     expect(res).to.have.status(400);
+  });
+});
+
+
+describe('PATCH /api/v1/user/:userId', () => {
+  beforeEach(() => {
+    User.remove();
+  });
+
+  let userId = '';
+  let token = '';
+
+  const exec = () => request(app)
+    .patch(`/api/v1/user/${userId}`)
+    .set('x-auth-token', token);
+
+  it('should not allow access to a admin without a token', async () => {
+    userId = '404';
+    token = '';
+    const res = await exec();
+    expect(res).to.have.status(401);
+  });
+
+  it('should not allow access to a admin with an invalid token', async () => {
+    userId = '404';
+    token = 'abcdef';
+    const res = await exec();
+    expect(res).to.have.status(401);
+  });
+
+  it('should not change roles of a non existant user', async () => {
+    User.createAdmin({ ...data.admin });
+    const admin = User.findByEmail(process.env.ADMIN_EMAIL);
+    token = generateToken(admin.id);
+    userId = 27;
+    const res = await exec();
+    expect(res).to.have.status(400);
+  });
+
+  it('should only allow admins to change user roles', async () => {
+    const { user00 } = data;
+    const user = User.create({ ...user00 });
+    token = generateToken(user.id);
+    userId = user.id;
+    const res = await exec();
+    expect(res).to.have.status(400);
+  });
+
+  it('should allow admin to change a user to a mentor', async () => {
+    const { user00 } = data;
+    const user = User.create({ ...user00 });
+    userId = user.id;
+    User.createAdmin({ ...data.admin });
+    const admin = User.findByEmail(process.env.ADMIN_EMAIL);
+    token = generateToken(admin.id);
+    const res = await exec();
+    expect(res).to.have.status(200);
   });
 });

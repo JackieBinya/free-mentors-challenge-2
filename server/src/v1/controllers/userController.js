@@ -77,6 +77,15 @@ const authUser = async (req, res) => {
   });
 };
 
+const changeRole = (req, res) => {
+  const { userId } = req.params;
+  const result = User.changeRole(userId);
+  res.status(200).json({
+    status: 'success',
+    data: result,
+  });
+};
+
 export {
-  createNewUser, authUser,
+  createNewUser, authUser, changeRole,
 };

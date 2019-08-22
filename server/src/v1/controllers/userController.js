@@ -35,6 +35,7 @@ const createNewUser = (req, res) => {
       expertise: user.expertise,
       imageUrl: user.imageUrl,
       role: user.role,
+      isAdmin: user.isAdmin,
       id: user.id,
     },
   });
@@ -60,6 +61,7 @@ const authUser = async (req, res) => {
           bio: user.bio,
           expertise: user.expertise,
           imageUrl: user.imageUrl,
+          isAdmin: user.isAdmin,
           role: user.role,
           id: user.id,
         },
@@ -75,4 +77,6 @@ const authUser = async (req, res) => {
   });
 };
 
-export { createNewUser, authUser };
+export {
+  createNewUser, authUser,
+};

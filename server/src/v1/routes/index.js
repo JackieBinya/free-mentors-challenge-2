@@ -1,7 +1,7 @@
-import users from './users';
+import authRoutes from './authRoutes';
 
 const routes = {
-  users,
+  authRoutes,
 };
 
 export default routes;

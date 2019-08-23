@@ -11,7 +11,7 @@ import generateToken from '../utils/authService';
 chai.use(chaiHttp);
 const { expect, request } = chai;
 
-describe('GET /api/v1/mentor', () => {
+describe('GET /api/v1/mentors', () => {
   beforeEach(() => {
     User.remove();
   });
@@ -19,7 +19,7 @@ describe('GET /api/v1/mentor', () => {
   let token = '';
 
   const exec = () => request(app)
-    .get('/api/v1/mentor')
+    .get('/api/v1/mentors')
     .set('x-auth-token', token);
 
   it('should not get mentors if the user has no token', async () => {

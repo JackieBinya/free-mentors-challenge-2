@@ -1,11 +1,11 @@
 import authRoutes from './authRoutes';
 import userRoutes from './userRoutes';
-import mentorRoutes from './mentorRoutes';
+import mentorsRoutes from './mentorsRoutes';
 
 const routes = {
   authRoutes,
   userRoutes,
-  mentorRoutes,
+  mentorsRoutes,
 };
 
 export default routes;

@@ -69,6 +69,10 @@ class User {
     return this.users[index];
   }
 
+  findMentors() {
+    return this.users.filter(user => user.role === 'mentor');
+  }
+
   remove() {
     this.users = [];
   }

@@ -22,4 +22,36 @@ const viewMentors = (req, res) => {
   });
 };
 
-export { viewMentors };
+const viewSpecificMentor = (req, res) => {
+  const { mentorId: id00 } = req.params;
+  const result = User.findOne(id00);
+
+  if (result) {
+    const {
+      id: mentorId, firstName, lastName, email, address, occupation, bio, expertise, role, isAdmin,
+    } = result;
+
+    return res.status(200).json({
+      status: 200,
+      data: {
+        mentorId,
+        firstName,
+        lastName,
+        email,
+        address,
+        occupation,
+        bio,
+        expertise,
+        role,
+        isAdmin,
+      },
+    });
+  }
+  return res.status(404).json({
+    status: 404,
+    error: 'Mentor not found!',
+  });
+};
+
+
+export { viewMentors, viewSpecificMentor };

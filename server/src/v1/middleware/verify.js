@@ -64,13 +64,12 @@ const verifyAdmin = (req, res, next) => {
 
   const user = User.findOne(id);
 
-  if (!user.isAdmin) {
+  if (!user || !user.isAdmin) {
     return res.status(400).json({
       status: 400,
       error: 'Access denied!',
     });
   }
-
   next();
 };
 

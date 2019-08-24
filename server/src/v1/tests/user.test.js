@@ -211,7 +211,7 @@ describe('PATCH /api/v1/user/:userId', () => {
     token = generateToken(user.id);
     userId = user.id;
     const res = await exec();
-    expect(res).to.have.status(400);
+    expect(res).to.have.status(403);
   });
 
   it('should allow admin to change a user to a mentor', async () => {

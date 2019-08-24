@@ -16,6 +16,7 @@ app.use('/api/v1', createAdmin);
 app.use('/api/v1/auth', routes.authRoutes);
 app.use('/api/v1/user', routes.userRoutes);
 app.use('/api/v1/mentors', routes.mentorsRoutes);
+app.use('/api/v1/sessions', routes.sessionsRoutes);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
 

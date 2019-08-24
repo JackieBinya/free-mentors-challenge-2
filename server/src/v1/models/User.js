@@ -49,7 +49,6 @@ class User {
     return newUser;
   }
 
-
   findByEmail(email) {
     return this.users.find(user => user.email === email);
   }

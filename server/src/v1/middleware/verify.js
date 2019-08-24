@@ -65,14 +65,26 @@ const verifyAdmin = (req, res, next) => {
   const user = User.findOne(id);
 
   if (!user || !user.isAdmin) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Access denied!',
+    return res.status(403).json({
+      status: 403,
+      error: 'Not an admin',
+    });
+  }
+  next();
+};
+
+const checkMentor = (req, res, next) => {
+  const { mentorId } = req.body;
+  const mentor = User.findOne(mentorId);
+  if (!mentor || mentor.role !== 'mentor') {
+    return res.status(403).json({
+      status: 403,
+      error: 'Not a mentor',
     });
   }
   next();
 };
 
 export {
-  verifyNewUser, verifyExistingUser, verifyAuthUser, verifyAdmin, checkUser,
+  verifyNewUser, verifyExistingUser, verifyAuthUser, verifyAdmin, checkUser, checkMentor
 };

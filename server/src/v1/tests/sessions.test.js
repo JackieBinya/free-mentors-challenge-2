@@ -32,20 +32,53 @@ describe('POST /api/v1/sessions', () => {
     token = generateToken(user.id);
     session = data.session00;
     const res = await exec();
+
+    expect(res).to.have.status(400);
+  });
+});
+
+describe('PATCH /api/v1/sessions/:sessionId/reject', () => {
+  beforeEach(() => {
+    User.remove();
+    Session.remove();
+  });
+
+  let sessionId = '';
+
+  let token = '';
+
+  const exec = () => request(app)
+    .patch(`/api/v1/sessions/${sessionId}/reject`)
+    .set('x-auth-token', token);
+
+  it('should not decline a session if session id is invalid', async () => {
+    const user = User.create({ ...data.user00 });
+    User.changeRole(user.id);
+    token = generateToken(user.id);
+    sessionId = 23;
+    const res = await exec();
+    expect(res).to.have.status(400);
+  });
+
+  it('should not allow session request to be updated if mentor id is invalid', async () => {
+    const user = User.create({ ...data.user00 });
+    token = generateToken(user.id);
+    sessionId = 23;
+    const res = await exec();
     expect(res).to.have.status(403);
   });
 
-  it('should create a mentorship session request if all detail is provided', async () => {
-    const user = User.create({ ...data.user00 });
-    token = generateToken(user.id);
+  it('should allow a mentor to reject a session request if session id is valid and mentor is authenticated', async () => {
+    const { id: mentorId } = User.create({ ...data.user00 });
+    User.changeRole(mentorId);
+    token = generateToken(mentorId);
 
-    const mentor = User.create({ ...data.user18 });
-    token = generateToken(mentor.id);
-    User.changeRole(mentor.id);
+    const { id: menteeId } = User.create({ ...data.user18 });
 
-    session = data.session00;
-    session.mentorId = mentor.id;
+    const { questions } = data.session00;
+    const newSession = Session.create({ mentorId, menteeId, questions });
 
+    sessionId = newSession.id;
     const res = await exec();
     expect(res).to.have.status(200);
   });

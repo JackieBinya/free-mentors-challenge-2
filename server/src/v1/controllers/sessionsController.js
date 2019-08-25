@@ -18,4 +18,22 @@ const createSession = (req, res) => {
   });
 };
 
-export { createSession };
+const declineRequest = (req, res) => {
+  const { sessionId } = req.params;
+  const {
+    mentorId, menteeId, questions, menteeEmail, status,
+  } = Session.decline(sessionId);
+  res.status(200).json({
+    status: 200,
+    data: {
+      sessionId,
+      mentorId,
+      menteeId,
+      questions,
+      menteeEmail,
+      status,
+    },
+  });
+};
+
+export { createSession, declineRequest };

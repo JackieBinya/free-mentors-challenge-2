@@ -21,6 +21,18 @@ class Session {
     return newSession;
   }
 
+  decline(id) {
+    const session = this.sessions.find(sessionItem => sessionItem.id === id);
+    const index = this.sessions.indexOf(session);
+    this.sessions[index].status = 'Reject';
+
+    return this.sessions[index];
+  }
+
+  findOne(id) {
+    return this.sessions.find(session => session.id === id);
+  }
+
   remove() {
     this.sessions = [];
   }

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
+import Session from '../models/Session';
 
 const verifyNewUser = (req, res, next) => {
   const user = User.findByEmail(req.body.email.trim());
@@ -77,14 +78,38 @@ const checkMentor = (req, res, next) => {
   const { mentorId } = req.body;
   const mentor = User.findOne(mentorId);
   if (!mentor || mentor.role !== 'mentor') {
-    return res.status(403).json({
-      status: 403,
+    return res.status(400).json({
+      status: 400,
       error: 'Not a mentor',
     });
   }
   next();
 };
 
+const verifyMentor = (req, res, next) => {
+  const mentorId = req.decoded.payload;
+  const mentor = User.findOne(mentorId);
+  if (!mentor || mentor.role !== 'mentor') {
+    return res.status(403).json({
+      status: 403,
+      error: 'Not a mentor, no permission',
+    });
+  }
+  next();
+};
+
+const verifySession = (req, res, next) => {
+  const result = Session.findOne(req.params.sessionId);
+  if (!result) {
+    return res.status(400).json({
+      status: 400,
+      error: `The session with id ${req.params.sessionId} does not exist in the app!`,
+    });
+  }
+  next();
+};
+
 export {
-  verifyNewUser, verifyExistingUser, verifyAuthUser, verifyAdmin, checkUser, checkMentor
+  verifyNewUser, verifyExistingUser, verifyAuthUser, verifyAdmin, checkUser, checkMentor,
+  verifyMentor, verifySession,
 };

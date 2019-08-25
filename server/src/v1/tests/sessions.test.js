@@ -83,3 +83,35 @@ describe('PATCH /api/v1/sessions/:sessionId/reject', () => {
     expect(res).to.have.status(200);
   });
 });
+
+describe('PATCH /api/v1/sessions/:sessionId/accept', () => {
+  beforeEach(() => {
+    User.remove();
+    Session.remove();
+  });
+
+  let sessionId = '';
+
+  let token = '';
+
+  const exec = () => request(app)
+    .patch(`/api/v1/sessions/${sessionId}/accept`)
+    .set('x-auth-token', token);
+
+  
+  it('should allow a mentor to accept a session request if session id is valid and mentor is authenticated', async () => {
+    const { id: mentorId } = User.create({ ...data.user00 });
+    User.changeRole(mentorId);
+    token = generateToken(mentorId);
+
+    const { id: menteeId } = User.create({ ...data.user18 });
+
+    const { questions } = data.session00;
+    const newSession = Session.create({ mentorId, menteeId, questions });
+
+    sessionId = newSession.id;
+    const res = await exec();
+    expect(res).to.have.status(200);
+  });
+});
+

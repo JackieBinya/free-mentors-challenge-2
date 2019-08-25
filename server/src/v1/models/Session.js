@@ -29,6 +29,14 @@ class Session {
     return this.sessions[index];
   }
 
+  accept(id) {
+    const session = this.sessions.find(sessionItem => sessionItem.id === id);
+    const index = this.sessions.indexOf(session);
+    this.sessions[index].status = 'Accept';
+
+    return this.sessions[index];
+  }
+
   findOne(id) {
     return this.sessions.find(session => session.id === id);
   }

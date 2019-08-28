@@ -26,7 +26,7 @@ const viewSpecificMentor = (req, res) => {
   const { mentorId: id00 } = req.params;
   const result = User.findOne(id00);
 
-  if (result) {
+  if (result && result.role === 'mentor') {
     const {
       id: mentorId, firstName, lastName, email, address, occupation, bio, expertise, role, isAdmin,
     } = result;

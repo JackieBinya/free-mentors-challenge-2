@@ -98,7 +98,7 @@ describe('PATCH /api/v1/sessions/:sessionId/accept', () => {
     .patch(`/api/v1/sessions/${sessionId}/accept`)
     .set('x-auth-token', token);
 
-  
+
   it('should allow a mentor to accept a session request if session id is valid and mentor is authenticated', async () => {
     const { id: mentorId } = User.create({ ...data.user00 });
     User.changeRole(mentorId);
@@ -115,3 +115,54 @@ describe('PATCH /api/v1/sessions/:sessionId/accept', () => {
   });
 });
 
+describe('GET /api/v1/sessions', () => {
+  beforeEach(() => {
+    User.remove();
+    Session.remove();
+  });
+
+  let token = '';
+
+  const exec = () => request(app)
+    .get('/api/v1/sessions')
+    .set('x-auth-token', token);
+
+  it('should not get  a mentee sessions if they dont exist', async () => {
+    const { id: menteeId } = User.create({ ...data.user18 });
+    token = generateToken(menteeId);
+    const res = await exec();
+    expect(res).to.have.status(404);
+  });
+
+  it('should not get  a mentor sessions if they dont exist', async () => {
+    const { id: mentorId } = User.create({ ...data.user18 });
+    User.changeRole(mentorId);
+    token = generateToken(mentorId);
+    const res = await exec();
+    expect(res).to.have.status(404);
+  });
+
+  it('should get a mentee sessions if they exist', async () => {
+    const { id: mentorId } = User.create({ ...data.user00 });
+    User.changeRole(mentorId);
+    const { id: menteeId } = User.create({ ...data.user18 });
+    token = generateToken(menteeId);
+    const { questions } = data.session00;
+    Session.create({ mentorId, menteeId, questions });
+
+    const res = await exec();
+    expect(res).to.have.status(200);
+  });
+
+  it('should get a mentee sessions if they exist', async () => {
+    const { id: mentorId } = User.create({ ...data.user00 });
+    User.changeRole(mentorId);
+    token = generateToken(mentorId);
+    const { id: menteeId } = User.create({ ...data.user18 });
+    const { questions } = data.session00;
+    Session.create({ mentorId, menteeId, questions });
+
+    const res = await exec();
+    expect(res).to.have.status(200);
+  });
+});

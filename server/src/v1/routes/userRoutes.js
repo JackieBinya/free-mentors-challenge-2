@@ -4,6 +4,6 @@ import { verifyAuthUser, checkUser, verifyAdmin } from '../middleware/verify';
 
 const router = Router();
 
-router.patch('/:userId', verifyAuthUser, checkUser, verifyAdmin, changeRole);
+router.patch('/:userId', verifyAuthUser, verifyAdmin, checkUser, changeRole);
 
 export default router;

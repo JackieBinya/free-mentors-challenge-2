@@ -24,7 +24,7 @@ class Session {
   decline(id) {
     const session = this.sessions.find(sessionItem => sessionItem.id === id);
     const index = this.sessions.indexOf(session);
-    this.sessions[index].status = 'Reject';
+    this.sessions[index].status = 'Rejected';
 
     return this.sessions[index];
   }
@@ -32,7 +32,7 @@ class Session {
   accept(id) {
     const session = this.sessions.find(sessionItem => sessionItem.id === id);
     const index = this.sessions.indexOf(session);
-    this.sessions[index].status = 'Accept';
+    this.sessions[index].status = 'Accepted';
 
     return this.sessions[index];
   }
@@ -40,6 +40,15 @@ class Session {
   findOne(id) {
     return this.sessions.find(session => session.id === id);
   }
+
+  findMenteeSessions(id) {
+    return this.sessions.filter(session => session.menteeId === id);
+  }
+
+  findMentorSessions(id) {
+    return this.sessions.filter(session => session.mentorId === id);
+  }
+
 
   remove() {
     this.sessions = [];

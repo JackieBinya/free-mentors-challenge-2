@@ -82,6 +82,7 @@ const changeRole = (req, res) => {
   const result = User.changeRole(userId);
   res.status(200).json({
     status: 'success',
+    message: 'User account changed to mentor',
     data: result,
   });
 };

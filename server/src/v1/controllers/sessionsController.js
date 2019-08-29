@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import User from '../models/User';
 import Session from '../models/Session';
 
@@ -54,4 +55,41 @@ const acceptRequest = (req, res) => {
   });
 };
 
-export { createSession, declineRequest, acceptRequest };
+const fetchSessions = (req, res) => {
+  const userId = req.decoded.payload;
+  const user = User.findOne(userId);
+
+  if (user.role === 'user') {
+    const sessions = Session.findMenteeSessions(userId);
+    if (sessions.length) {
+      return res.status(200).json({
+        status: 200,
+        data: sessions,
+      });
+    }
+
+    res.status(404).json({
+      status: 404,
+      error: 'Sessions not found',
+    });
+  }
+
+  if (user.role === 'mentor') {
+    const sessions = Session.findMentorSessions(userId);
+    if (sessions.length) {
+      return res.status(200).json({
+        status: 200,
+        data: sessions,
+      });
+    }
+
+    return res.status(404).json({
+      status: 404,
+      error: 'Sessions not found',
+    });
+  }
+};
+
+export {
+  createSession, declineRequest, acceptRequest, fetchSessions,
+};

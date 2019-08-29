@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 import Session from '../models/Session';
@@ -60,6 +61,18 @@ const checkUser = (req, res, next) => {
   next();
 };
 
+const verifyUser = (req, res, next) => {
+  const userId = req.decoded.payload;
+  const user = User.findOne(userId);
+  if (!user) {
+    return res.status(403).json({
+      status: 403,
+      error: `The user with id ${userId} does not exist in the app!`,
+    });
+  }
+  next();
+};
+
 const verifyAdmin = (req, res, next) => {
   const id = req.decoded.payload;
 
@@ -111,5 +124,5 @@ const verifySession = (req, res, next) => {
 
 export {
   verifyNewUser, verifyExistingUser, verifyAuthUser, verifyAdmin, checkUser, checkMentor,
-  verifyMentor, verifySession,
+  verifyMentor, verifySession, verifyUser,
 };

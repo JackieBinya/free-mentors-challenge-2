@@ -17,12 +17,12 @@ Free Mentors is a social initiative where accomplished professionals become role
 ## Prerequisites
 
 Before you clone this repo ensure that you have the following already installed on your machine
-- *Visual Studio Code*, get it here [here](https://code.visualstudio.com/download) OR any text editor  OR IDE of your choice
-- *git*, get it [here](https://git-scm.com)
-- *Node.js*, get it [here](https://nodejs.org)
-- *PostgreSQL*, get it [here](https://www.postgresql.org/download/)
+- *Visual Studio Code*: get it [here,](https://code.visualstudio.com/download) OR any text editor  OR IDE of your choice
+- *git*: get it [here.](https://git-scm.com)
+- *Node.js*: get it [here.](https://nodejs.org)
+- *PostgreSQL*: get it [here.](https://www.postgresql.org/download/)
 
-##Tools
+## Tools
 
 - [Postman](https://www.getpostman.com/) is the only complete API development environment, and flexibly integrates with the software development cycle.
 - Testing

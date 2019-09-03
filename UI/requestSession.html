@@ -6,12 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Session Request</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/722dcdb9b8.js"></script>
+    <script src="sessions.js" async></script>
 </head>
 <body>
-    <header>
+    <div class="sidebar-nav">   
+            <div class="logo-container">
+                <div>
+                    <a href="mentors.html" class="sidebar-nav-logo">Free Mentors</a>
+                </div>
+                <div>
+                    <button class="close-btn">&times;</button>
+                </div>
+            </div>
+            <a href="becomeMentor.html">Become a Mentor</a>
+            <a href="./sessions.html">Sessions</a>
+            <a href="#"> Profile</a>
+            <a href="#">Log Out</a>
+        </div>
+        <header>
             <a href="mentors.html" class="logo">Free Mentors</a>
-            <a href="index.html">Log Out</a>
-    </header>
+            <nav class="small">
+                <button class="open-btn"><i class="fas fa-bars"></i></button>
+            </nav>
+            <nav class="large">
+                <ul>
+                    <li><a href="becomeMentor.html">Become a Mentor</a></li>
+                    <li><a href="./sessions.html">Sessions</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="index.html">Log Out</a></li>
+                </ul>
+            </nav>
+        </header>
     <div class="container form container">
         <form action="" class="sessionForm">
             <h2 class="session-title">Session Request</h2>
@@ -30,7 +56,7 @@
                     <textarea name="question3"  maxlength="200"  rows="5" placeholder="Type a question here..." ></textarea>
             </div>
             <div class="btn-container">
-                <button class="btn post">Send</button>
+                <button class="btn">Send</button>
             </div>
         </form>
     </div>

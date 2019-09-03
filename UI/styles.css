@@ -231,7 +231,7 @@ header  {
   transition: 1s;
   top: 0;
   right: 0;
-  width: 50%;
+  width: 100%;
   height: auto;
   font-size: 0.9em;
   border-radius: 5px;
@@ -429,7 +429,7 @@ ul li {
   background-color: transparent;
 }
 
- .btn {
+.btn {
   display: block;
   padding: 1em 3.5em;
   text-align: center;
@@ -456,10 +456,26 @@ ul li {
     background-color: rgb(9, 9, 129);
  }
 
+.btn-secondary{
+  width: 180px;
+}
+ .danger {
+   background-color: red;
+ }
+
+ .danger:hover{
+   background-color: darkred;
+ }
+
 
 @media only screen and (min-width: 768px) {
   .container {
     min-width: 80%;;
+  }
+
+  .btn-secondary{
+    display: inline;
+    margin-right: 0.5em;
   }
 }
 
@@ -496,11 +512,13 @@ ul li {
 
   @media only screen and (min-width: 1024px){
     .form-container {
-      height: 100vh;
+      height: 90vh;
       position: fixed;
-      top: 10%;
+      top: 25%;
+      bottom: 20%;
+      right: 10%;
       left: 10%;
-    }
+    } 
     
     .sessionForm , .signUpForm, .signInForm {
       width: 50%;
@@ -509,6 +527,8 @@ ul li {
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
       padding: 2em;
     }
+
+   
   }
 
     

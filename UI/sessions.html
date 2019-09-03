@@ -10,10 +10,32 @@
     <script src="sessions.js" async></script>
 </head>
 <body>
-    <header>
-        <a href="mentors.html" class="logo">Free Mentors</a>
-        <a href="index.html">Log Out</a>
-    </header>
+    <div class="sidebar-nav">   
+            <div class="logo-container">
+                <div>
+                    <a href="mentors.html" class="sidebar-nav-logo">Free Mentors</a>
+                </div>
+                <div>
+                    <button class="close-btn">&times;</button>
+                </div>
+            </div>
+            <a href="becomeMentor.html">Become a Mentor</a>
+            <a href="#"> Profile</a>
+            <a href="index.html">Log Out</a>
+        </div>
+        <header>
+            <a href="mentors.html" class="logo">Free Mentors</a>
+            <nav class="small">
+                <button class="open-btn"><i class="fas fa-bars"></i></button>
+            </nav>
+            <nav class="large">
+                <ul>
+                    <li><a href="becomeMentor.html">Become a Mentor</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="index.html">Log Out</a></li>
+                </ul>
+            </nav>
+        </header>
     <main>
         <div class="container">
             <ul class="list">
@@ -49,8 +71,8 @@
                                     <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, voluptatum nisi! A, atque ex.</li>
                                 </ol>
                             </div>
-                            <button class="btn">Accept</button>
-                            <button class="btn">Decline</button>
+                            <button class="btn btn-secondary">Accept</button>
+                            <button class="btn btn-secondary danger">Decline</button>
                         </div>
                     </div>
                 </li>
@@ -86,8 +108,8 @@
                                     <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, voluptatum nisi! A, atque ex.</li>
                                 </ol>
                             </div>
-                            <button class="btn">Accept</button>
-                            <button class="btn">Decline</button>
+                            <button class="btn btn-secondary">Accept</button>
+                            <button class="btn btn-secondary danger">Decline</button>
                         </div>
                     </div>
                 </li>
@@ -123,8 +145,8 @@
                                     <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, voluptatum nisi! A, atque ex.</li>
                                 </ol>
                             </div>
-                            <button class="btn">Accept</button>
-                            <button class="btn">Decline</button>
+                            <button class="btn btn-secondary">Accept</button>
+                            <button class="btn btn-secondary danger">Decline</button>
                         </div>
                     </div>
                 </li>

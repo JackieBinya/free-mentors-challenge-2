@@ -321,6 +321,13 @@ header  {
 /************************************************
 * Show mentor styling
 /**********************************************************************************/
+.adjust{
+  background-color: whitesmoke;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  padding: 1em;
+  max-width: 80%;
+  margin: 0 auto;
+}
 .info .image-container {
   margin-bottom: 1em;
 }
@@ -344,9 +351,14 @@ header  {
   color: blue;
 }
 
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 1024px) {
   .info .image-container {
     margin-bottom: 1em;
+  }
+
+  .adjust {
+    max-width: 60%;
+    padding: 1.5em;
   }
 }
 

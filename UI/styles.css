@@ -345,6 +345,9 @@ header  {
 }
 
 @media only screen and (min-width: 1025px) {
+  .info {
+    text-align: center;
+  } 
   .info .image-container {
     margin-bottom: 1em;
   }

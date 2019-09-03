@@ -10,10 +10,34 @@
     <script src="showMentor.js" async></script>
 </head>
 <body>
-    <header>
+    <div class="sidebar-nav">   
+            <div class="logo-container">
+                <div>
+                    <a href="mentors.html" class="sidebar-nav-logo">Free Mentors</a>
+                </div>
+                <div>
+                    <button class="close-btn">&times;</button>
+                </div>
+            </div>
+            <a href="becomeMentor.html">Become a Mentor</a>
+            <a href="./sessions.html">Sessions</a>
+            <a href="#"> Profile</a>
+            <a href="#">Log Out</a>
+        </div>
+        <header>
             <a href="mentors.html" class="logo">Free Mentors</a>
-            <a href="index.html">Log Out</a>
-    </header>    
+            <nav class="small">
+                <button class="open-btn"><i class="fas fa-bars"></i></button>
+            </nav>
+            <nav class="large">
+                <ul>
+                    <li><a href="becomeMentor.html">Become a Mentor</a></li>
+                    <li><a href="./sessions.html">Sessions</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="index.html">Log Out</a></li>
+                </ul>
+            </nav>
+        </header>   
     <div class="container">
         <div class="adjust">
             <div class="info">
@@ -33,7 +57,7 @@
                     <p data-expertise-value=""></p>
                 </div>      
             </div>
-            <button class="btn"><a href="requestSession.html">Request a session</a></button>
+            <button class="btn post"><a href="requestSession.html">Request a session</a></button>
        </div>
     </div>
     <footer>

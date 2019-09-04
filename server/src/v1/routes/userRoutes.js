@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { changeRole } from '../controllers/userController';
-import { verifyAuthUser, checkUser, verifyAdmin } from '../middleware/verify';
+import UserController from '../controllers/userController';
+import Verify from '../middleware/verify';
 
 const router = Router();
 
-router.patch('/:userId', verifyAuthUser, verifyAdmin, checkUser, changeRole);
+router.patch('/:userId', Verify.verifyAuthUser, Verify.verifyAdmin, Verify.checkUser, UserController.changeRole);
 
 export default router;

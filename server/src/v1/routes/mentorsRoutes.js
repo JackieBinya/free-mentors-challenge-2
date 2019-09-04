@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { verifyAuthUser } from '../middleware/verify';
-import { viewMentors, viewSpecificMentor } from '../controllers/mentorController';
+import Verify  from '../middleware/verify';
+import MentorController from '../controllers/mentorController';
 
 const router = Router();
 
-router.use(verifyAuthUser);
+router.use(Verify.verifyAuthUser);
 
-router.get('/', viewMentors);
-router.get('/:mentorId', viewSpecificMentor);
+router.get('/', MentorController.viewMentors);
+router.get('/:mentorId', MentorController.viewSpecificMentor);
 
 export default router;

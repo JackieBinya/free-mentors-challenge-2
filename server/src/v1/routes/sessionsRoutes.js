@@ -1,18 +1,14 @@
 import { Router } from 'express';
-import {
-  verifyAuthUser, checkMentor, verifyMentor, verifySession, verifyUser,
-} from '../middleware/verify';
-import {
-  createSession, declineRequest, acceptRequest, fetchSessions,
-} from '../controllers/sessionsController';
+import Verify from '../middleware/verify';
+import SessionsController from '../controllers/sessionsController';
 
 const router = Router();
 
-router.use(verifyAuthUser);
+router.use(Verify.verifyAuthUser);
 
-router.post('/', verifyUser, checkMentor, createSession);
-router.patch('/:sessionId/accept', verifyMentor, verifySession, acceptRequest);
-router.patch('/:sessionId/reject', verifyMentor, verifySession, declineRequest);
-router.get('/', verifyUser, fetchSessions);
+router.post('/', Verify.verifyUser, Verify.checkMentor, SessionsController.createSession);
+router.patch('/:sessionId/accept', Verify.verifyMentor, Verify.verifySession, Verify.verifyStatusAccept, SessionsController.acceptRequest);
+router.patch('/:sessionId/reject', Verify.verifyMentor, Verify.verifySession,Verify.verifyStatusDecline, SessionsController.declineRequest);
+router.get('/', Verify.verifyUser, SessionsController.fetchSessions);
 
 export default router;

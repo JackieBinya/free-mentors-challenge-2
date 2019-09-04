@@ -2,7 +2,7 @@ import express from 'express';
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from '../../../swagger.json';
 import routes from './routes';
-import createAdmin from './middleware/admin';
+import Admin from './middleware/admin';
 
 const app = express();
 
@@ -15,7 +15,7 @@ Kigali, Rwanda`));
 const port = process.env.PORT || 8001;
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-app.use('/api/v1', createAdmin);
+app.use('/api/v1', Admin.createAdmin);
 app.use('/api/v1/auth', routes.authRoutes);
 app.use('/api/v1/user', routes.userRoutes);
 app.use('/api/v1/mentors', routes.mentorsRoutes);

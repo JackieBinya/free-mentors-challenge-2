@@ -75,9 +75,7 @@ class Verify {
 
   static verifyAdmin(req, res, next) {
     const id = req.decoded.payload;
-
     const user = User.findOne(id);
-
     if (!user || !user.isAdmin) {
       return res.status(403).json({
         status: 403,
@@ -135,7 +133,7 @@ class Verify {
 
   static verifyStatusDecline(req, res, next) {
     const result = Session.findOne(req.params.sessionId);
-    if (result.status === 'Accepted') {
+    if (result.status === 'Rejected') {
       return res.status(400).json({
         status: 400,
         error: 'Session has already been rejected',

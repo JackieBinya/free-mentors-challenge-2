@@ -1,7 +1,6 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import bcrypt from 'bcryptjs';
 import app from '../app';
 import User from '../models/User';
 import data from './MockData/user';
@@ -60,6 +59,24 @@ describe('PATCH /api/v1/sessions/:sessionId/reject', () => {
     expect(res).to.have.status(400);
   });
 
+  it('should not allow a mentor to reject a session twice', async () => {
+    const { id: mentorId } = User.create({ ...data.user00 });
+    User.changeRole(mentorId);
+    token = generateToken(mentorId);
+
+    const { id: menteeId } = User.create({ ...data.user18 });
+
+    const { questions } = data.session00;
+    const newSession = Session.create({ mentorId, menteeId, questions });
+
+    newSession.status = 'Rejected';
+
+    sessionId = newSession.id;
+
+    const res = await exec();
+    expect(res).to.have.status(400);
+  });
+
   it('should not allow session request to be updated if mentor id is invalid', async () => {
     const user = User.create({ ...data.user00 });
     token = generateToken(user.id);
@@ -113,6 +130,23 @@ describe('PATCH /api/v1/sessions/:sessionId/accept', () => {
     const res = await exec();
     expect(res).to.have.status(200);
   });
+
+  it('should not allow a mentor to accept a session twice', async () => {
+    const { id: mentorId } = User.create({ ...data.user00 });
+    User.changeRole(mentorId);
+    token = generateToken(mentorId);
+
+    const { id: menteeId } = User.create({ ...data.user18 });
+
+    const { questions } = data.session00;
+    const newSession = Session.create({ mentorId, menteeId, questions });
+    newSession.status = 'Accepted';
+
+    sessionId = newSession.id;
+
+    const res = await exec();
+    expect(res).to.have.status(400);
+  });
 });
 
 describe('GET /api/v1/sessions', () => {
@@ -142,6 +176,18 @@ describe('GET /api/v1/sessions', () => {
     expect(res).to.have.status(404);
   });
 
+  it('should not get a mentee sessions if they dont exist', async () => {
+    const { id: mentorId } = User.create({ ...data.user00 });
+    User.changeRole(mentorId);
+    const { id: menteeId } = User.create({ ...data.user18 });
+    token = generateToken(1);
+    const { questions } = data.session00;
+    Session.create({ mentorId, menteeId, questions });
+
+    const res = await exec();
+    expect(res).to.have.status(403);
+  });
+
   it('should get a mentee sessions if they exist', async () => {
     const { id: mentorId } = User.create({ ...data.user00 });
     User.changeRole(mentorId);
@@ -154,7 +200,7 @@ describe('GET /api/v1/sessions', () => {
     expect(res).to.have.status(200);
   });
 
-  it('should get a mentee sessions if they exist', async () => {
+  it('should get a mentor sessions if they exist', async () => {
     const { id: mentorId } = User.create({ ...data.user00 });
     User.changeRole(mentorId);
     token = generateToken(mentorId);

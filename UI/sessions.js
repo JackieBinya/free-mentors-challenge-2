@@ -16,8 +16,6 @@ document.querySelector('.close-btn').addEventListener('click', (e) => {
   sidebarNav.style.display = 'none';
 });
 
-
-
 for (let i = 0; i < moreBtns.length; i++) {
   moreBtns[i].addEventListener('click', (e) => {
     for (let j = 0; j < displayBtns.length; j++) {

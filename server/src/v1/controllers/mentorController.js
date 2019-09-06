@@ -57,6 +57,3 @@ class MentorController {
 }
 
 export default MentorController;
-
-
-

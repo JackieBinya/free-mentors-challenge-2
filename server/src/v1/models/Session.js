@@ -49,7 +49,6 @@ class Session {
     return this.sessions.filter(session => session.mentorId === id);
   }
 
-
   remove() {
     this.sessions = [];
   }

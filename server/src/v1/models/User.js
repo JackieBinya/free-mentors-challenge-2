@@ -58,7 +58,7 @@ class User {
   }
 
   findOne(id) {
-    return this.users.find(user => user.id === id)
+    return this.users.find(user => user.id === id);
   }
 
   changeRole(id) {

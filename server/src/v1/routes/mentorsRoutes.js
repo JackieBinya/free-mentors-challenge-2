@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import Verify  from '../middleware/verify';
+import Verify from '../middleware/verify';
 import MentorController from '../controllers/mentorController';
 
 const router = Router();

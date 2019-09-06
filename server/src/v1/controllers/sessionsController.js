@@ -7,7 +7,7 @@ class SessionsController {
     const menteeId = req.decoded.payload;
     const { mentorId, questions } = req.body;
     const { id: sessionId, status, menteeEmail } = Session.create({ mentorId, questions, menteeId });
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       message: 'SUCCESS',
       data: {
@@ -26,7 +26,7 @@ class SessionsController {
     const {
       mentorId, menteeId, questions, menteeEmail, status,
     } = Session.decline(sessionId);
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       message: 'SUCCESS',
       data: {
@@ -45,7 +45,7 @@ class SessionsController {
     const {
       mentorId, menteeId, questions, menteeEmail, status,
     } = Session.accept(sessionId);
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       message: 'SUCCESS',
       data: {

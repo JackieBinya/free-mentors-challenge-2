@@ -78,7 +78,7 @@ These are the endpoints for this api :
 
 ## External Links
 
-- UI Template for the application can be found here [Github pages.](https://jackiebinya.github.io/free-mentors---challenge-1/UI/)
+- UI Template for the application can be found here [Github pages.](https://jackiebinya.github.io/free-mentors-challenge-2/UI/)
 
 - Pivotal Tracker Stories can found here [Pivotal tracker.](https://www.pivotaltracker.com/n/projects/2382168)
 

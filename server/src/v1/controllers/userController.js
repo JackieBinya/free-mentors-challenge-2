@@ -70,7 +70,7 @@ class UserController {
       if (!isMatch) {
         return res.status(400).json({
           status: 400,
-          error: 'Authentification failed incorrect password!',
+          error: 'Authentication failed, incorrect password!',
         });
       }
     });
@@ -79,7 +79,7 @@ class UserController {
   static changeRole(req, res) {
     const { userId } = req.params;
     const result = User.changeRole(userId);
-    res.status(200).json({
+    return res.status(200).json({
       status: '200',
       message: 'User account changed to mentor',
       data: result,
